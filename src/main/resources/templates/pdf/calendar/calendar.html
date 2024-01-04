@@ -1,0 +1,125 @@
+<html>
+
+<head>
+    <title>Calendario</title>
+    <meta name="description" content="Calendario" />
+    <style>
+        @font-face {
+            /* font-family: "Cambria Math"; */
+            font-family: "TestFont";
+        }
+
+        @page {
+            size: A4;
+            /* margin: 11mm 17mm 35mm 35mm; */
+            margin: 5mm 5mm 5mm 5mm;
+        }
+
+        @media print {
+            .pagebreak {
+                page-break-before: always;
+            }
+
+            .page-prefix:after {
+                content: counter(page);
+            }
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        .month-container {
+            /* background-color: lightslategray; */
+        }
+
+        .month-header {
+            background-color: lightgreen;
+            text-align: center;
+        }
+
+        .month-content {
+            background-color: lightyellow;
+            width: 100%;
+            /* display: flex; */
+            /* display: inline-block; */
+        }
+
+        .picture-part {
+            background-color: lightblue;
+            width: 6cm;
+            height: 6cm;
+            background-size: cover;
+            float: left;
+        }
+
+        .calendar-part {
+            /* background-color: lightcoral; */
+            /* flex: 1; */
+            /* float: inline-end; */
+            /* width: auto; */
+        }
+
+        table {
+            margin-right: 0;
+            margin-left: auto;
+            width: 13cm;
+            height: 6cm;
+            /* height: 100%; */
+            border-spacing: 0;
+            border: solid 1px;
+        }
+
+        td {
+            border: solid 1px black;
+            width: 1.4cm;
+            align-content: end;
+            font-size: small;
+            text-align: end;
+            vertical-align: super;
+        }
+
+        .finde {
+            background-color: rgb(248, 212, 212);
+            color: rgb(184, 76, 37);
+        }
+
+        .not-current-month {
+            color: gray;
+            background-color: rgb(248, 248, 248);
+        }
+
+        .festivo {
+            background-color: rgb(222, 199, 243);
+            color: rgb(168, 42, 232);
+        }
+    </style>
+
+</head>
+
+<body>
+    {{#months}}
+    <div class="month-container">
+        <div class="month-header">
+            <h1>{{month}}</h1>
+        </div>
+        <div class="month-content">
+            <div class="picture-part" style="background-image: url('./{{image}}');">
+            </div>
+            <div class="calendar-part">
+                <table>
+                    {{#weeks}}
+                    <tr>
+                        {{#days}}
+                        <td class="{{type}}" style="height: {{height}}cm">{{number}}</td>
+                        {{/days}}
+                    </tr>
+                    {{/weeks}}
+                </table>
+            </div>
+        </div>
+    </div>
+    {{/months}}
+</body>
+
+</html>
