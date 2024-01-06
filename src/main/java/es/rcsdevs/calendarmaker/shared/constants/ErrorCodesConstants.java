@@ -1,7 +1,7 @@
 package es.rcsdevs.calendarmaker.shared.constants;
 
 /**
- * Errores genéricos de la aplicación. No es necesario añadir errores específicos
+ * Errores genéricos de la aplicación
  */
 public class ErrorCodesConstants {
 	public static final String ERROR_DEFAULT = "000";

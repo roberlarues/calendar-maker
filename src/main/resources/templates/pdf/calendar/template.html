@@ -5,59 +5,48 @@
     <meta name="description" content="Calendario" />
     <style>
         @font-face {
-            /* font-family: "Cambria Math"; */
             font-family: "TestFont";
         }
 
         @page {
             size: A4;
-            /* margin: 11mm 17mm 35mm 35mm; */
-            margin: 5mm 5mm 5mm 5mm;
+            margin: 10mm 5mm 0mm 5mm;
         }
 
         @media print {
             .pagebreak {
-                page-break-before: always;
-            }
-
-            .page-prefix:after {
-                content: counter(page);
+                page-break-after: auto;
             }
         }
 
         h1 {
             margin: 0;
+            font-size: 1cm;
         }
 
         .month-container {
-            /* background-color: lightslategray; */
+            padding-bottom: 1cm;
+            border-bottom: 1px dashed gray;
+        }
+
+        .nextofpage {
+            margin-top: 1cm;
         }
 
         .month-header {
-            background-color: lightgreen;
             text-align: center;
+            padding-bottom: 0.5cm;
         }
 
         .month-content {
-            background-color: lightyellow;
             width: 100%;
-            /* display: flex; */
-            /* display: inline-block; */
         }
 
         .picture-part {
-            background-color: lightblue;
             width: 6cm;
             height: 6cm;
             background-size: cover;
             float: left;
-        }
-
-        .calendar-part {
-            /* background-color: lightcoral; */
-            /* flex: 1; */
-            /* float: inline-end; */
-            /* width: auto; */
         }
 
         table {
@@ -65,7 +54,6 @@
             margin-left: auto;
             width: 13cm;
             height: 6cm;
-            /* height: 100%; */
             border-spacing: 0;
             border: solid 1px;
         }
@@ -79,7 +67,7 @@
             vertical-align: super;
         }
 
-        .finde {
+        .weekend {
             background-color: rgb(248, 212, 212);
             color: rgb(184, 76, 37);
         }
@@ -89,9 +77,27 @@
             background-color: rgb(248, 248, 248);
         }
 
-        .festivo {
+        .national_holiday {
             background-color: rgb(222, 199, 243);
             color: rgb(168, 42, 232);
+        }
+
+        .local_holiday {
+            background-color: rgb(243, 199, 243);
+            color: rgb(232, 42, 185);
+        }
+
+        .birthday {
+            background-color: rgb(199, 243, 199);
+            color: rgb(28, 90, 22);
+        }
+
+        .cell-name {
+            font-size: smaller;
+        }
+
+        .cell-desc {
+            font-size: xx-small;
         }
     </style>
 
@@ -99,19 +105,23 @@
 
 <body>
     {{#months}}
-    <div class="month-container">
+    <div class="month-container  {{#indexModThree @index}} firstofpage {{else}} nextofpage {{/indexModThree}}">
         <div class="month-header">
             <h1>{{month}}</h1>
         </div>
         <div class="month-content">
-            <div class="picture-part" style="background-image: url('./{{image}}');">
+            <div class="picture-part" style="background-image: url('{{image}}');">
             </div>
             <div class="calendar-part">
                 <table>
                     {{#weeks}}
                     <tr>
                         {{#days}}
-                        <td class="{{type}}" style="height: {{height}}cm">{{number}}</td>
+                        <td class="{{type}}" style="height: {{height}}cm">
+                            <div>{{number}}</div>
+                            <div class="cell-name">{{name}}</div>
+                            <div class="cell-desc">{{description}}</div>
+                        </td>
                         {{/days}}
                     </tr>
                     {{/weeks}}
